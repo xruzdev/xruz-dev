@@ -195,7 +195,7 @@ export const Contact = () => {
 
         <h1 className=" flex flex-col   gap-2 text-4xl md:text-5xl font-bold ">
           <span className="inline-flex items-center gap-2">
-            <div className="bg-[url('/retrato.png')] rounded-[50%] relative bg-cover inline-flex size-10 md:hidden" />
+            <div className="bg-[url('https://res.cloudinary.com/dqbpjov4y/image/upload/v1731443113/retrato_akppqf.jpg')] rounded-[50%] relative bg-cover inline-flex size-10 md:hidden" />
             Empecemos
           </span>
           <span>
@@ -261,7 +261,7 @@ export const Contact = () => {
 
           <form action={action} className="form relative xl:w-1/2">
             <div className="form-col  ">
-              <h5>01</h5>
+              <h3>01</h3>
               <label className="label" htmlFor="name">
                 Cual es tu nombre ?
               </label>
@@ -276,7 +276,7 @@ export const Contact = () => {
             </div>
 
             <div className="form-col">
-              <h5>02</h5>
+              <h3>02</h3>
               <label className="label" htmlFor="email">
                 Cual es tu email ?
               </label>
@@ -290,7 +290,7 @@ export const Contact = () => {
               />
             </div>
             <div className="form-col">
-              <h5>03</h5>
+              <h3>03</h3>
               <label className="label" htmlFor="company">
                 Cual es el nombre de tu empresa ?
               </label>
@@ -305,7 +305,7 @@ export const Contact = () => {
             </div>
 
             <div className="form-col">
-              <h5>04</h5>
+              <h3>04</h3>
               <label className="label" htmlFor="message">
                 Tu mensaje
               </label>

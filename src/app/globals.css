@@ -9,7 +9,7 @@
   @apply w-1/6 h-screen;
 }
 
-form h5 {
+form h3 {
   @apply text-xs font-semibold text-orange-900 absolute left-0;
 }
 

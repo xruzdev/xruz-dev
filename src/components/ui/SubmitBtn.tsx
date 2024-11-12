@@ -135,6 +135,7 @@ export const SubmitBtn = ({ children, className, error, setError }: ButtonProps)
       style={{
         clipPath: "circle(50% at 50% 50%)",
       }}
+      title="Enviar"
       ref={container}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

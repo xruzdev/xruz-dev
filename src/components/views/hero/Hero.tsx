@@ -29,9 +29,7 @@ export const Hero = () => {
       if(videoEl.buffered.length > 0){
         setVideoLoaded(true);
 
-        gsap.set("#scroll",{
-          opacity: 1
-        })
+       
 
       }
 
@@ -51,6 +49,9 @@ export const Hero = () => {
     },
     [videoLoaded]
   );
+
+
+
 
   useGSAP(
     () => {
@@ -140,15 +141,15 @@ export const Hero = () => {
         ref={container}
         className=" w-full h-[100dvh] lg:h-[300vh] flex flex-col lg:flex-row relative"
       >
-        <div
+        {videoLoaded && <div
           id="scroll"
-          className="text-gray-300 opacity-0  absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-32 gap-5"
+          className={"text-gray-300   absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-32 gap-5"}
         >
           <span className={monoton.className + " text-2xl"}>Scroll.</span>
           <div className=" bordesr  rounded-full h-20 w-10 flex justify-center items-center">
             <MdKeyboardDoubleArrowDown className="text-3xl animate-bounce" />
           </div>
-        </div>
+        </div>}
 
         <div
           id="initial-logo"
