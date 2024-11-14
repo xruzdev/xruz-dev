@@ -7,8 +7,8 @@ export async function sendMail(form: FormData): Promise<mailState> {
     host: "smtp.gmail.com",
     port: 465,
     auth: {
-      user: "xruzdev@gmail.com",
-      pass: "uopurvomoqolxrwi",
+      user: process.env.USER_MAIL,
+      pass: process.env.PASSWORD_MAIL,
     },
   });
   const info = await transporter.sendMail({
