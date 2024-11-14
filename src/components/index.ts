@@ -10,12 +10,3 @@ export { Contact } from "./views/contact/Contact";
 
 export { Lenis } from "./providers/Lenis";
 
-
-/*UI */
-
-export {NoisedBg}  from "./ui/NoisedBg"
-
-
-/* Components */
-
-export * from './SvgBackground'
