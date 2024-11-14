@@ -16,11 +16,24 @@ export const Hero = () => {
     buttons = useRef<HTMLDivElement>(null),
     video = useRef<HTMLVideoElement>(null);
 
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false),
+  [isMobile, setIsMobile] = useState(false);
+
+
+  useEffect(()=>{
+    if(window.innerWidth < 1000){
+      setIsMobile(true);
+    }
+  },[])
+
+
+
 
 
 
   useEffect(()=>{
+
+    if (isMobile) return;
 
     if (video.current) {
 
@@ -37,10 +50,17 @@ export const Hero = () => {
      
     }
 
-  },[video])
+  },[video,isMobile])
 
   useLenis(
     (lenis) => {
+
+      if (isMobile) {
+        lenis.start();
+        return;
+      }
+
+
       if (videoLoaded) {
         lenis.start();
       } else {
@@ -60,7 +80,7 @@ export const Hero = () => {
         !text.current ||
         !buttons.current ||
         !video.current ||
-        window.innerWidth < 1000 ||
+        isMobile ||
         !videoLoaded
       )
         return;
@@ -188,7 +208,7 @@ export const Hero = () => {
         </div>
 
         <SvgBackground />
-        <video
+      {!isMobile &&  <video
           ref={video}
           muted
           
@@ -197,7 +217,7 @@ export const Hero = () => {
           className="hidden lg:block fixed top-0 left-0 w-screen h-screen object-cover -z-50 brightness-[.3] sepia "
         >
           <source src="https://res.cloudinary.com/dqbpjov4y/video/upload/v1731443124/output_cjbckd.mp4" />
-        </video>
+        </video>}
         <div
           id="text-container"
           className="flex flex-col items-center justify-end lg:justify-start size-full"
@@ -246,7 +266,7 @@ export const Hero = () => {
               </ButtonLink>
             </div>
           </div>
-          <div className="buttons flex lg:hidden w-full mb-4 items-center justify-evenly text-center text-xs -z-20   lg:static ">
+          <div className="buttons flex lg:hidden w-full mb-4 items-center justify-evenly text-center text-xs     lg:static ">
             <ButtonLink className="" href="#about">
               Sobre Mi
             </ButtonLink>

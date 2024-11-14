@@ -22,7 +22,7 @@ export const Text = () => {
                 scrub: true,
                 start: `-400px center`,
                 end: `500px center`,
-               
+                toggleActions: "play none none restart"
             },
             opacity: 1,
             ease: "none",
@@ -54,7 +54,7 @@ export const Text = () => {
 
 
   return <div ref={container} className=" w-full xl:w-1/2">
-    <div ref={body} className="flex flex-wrap gap-2  w-full  text-xl leading-8 2xl:leading-[3.5rem] xl:text-3xl 2xl:text-[2.3rem]  ">
+    <div ref={body} className="flex flex-wrap gap-2  w-full  text-xl leading-8 2xl:leading-[3.5rem] xl:text-2xl 2xl:text-3xl  ">
         {splitWords(text)}
     </div>
     

@@ -1,7 +1,5 @@
 "use client";
 import { monoton } from "@/config";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import Link from "next/link";
 import React, { useRef } from "react";
@@ -11,56 +9,17 @@ interface ButtonProps {
   children: React.ReactNode;
   href: string;
   className?: string;
-  start?: boolean;
 }
 
 export const ButtonLink = ({
   children,
   className,
   href,
-  start,
 }: ButtonProps) => {
   const container = useRef<HTMLAnchorElement>(null);
 
   const lenisRef = useLenis();
 
-  const tl = useRef<gsap.core.Timeline>();
-
-  const { contextSafe } = useGSAP(
-    () => {
-      if (!container.current) return;
-
-      tl.current = gsap
-        .timeline()
-        .to(
-          container.current,
-          {
-            scale: 1.1,
-            duration: 0.5,
-            ease: "back.inOut",
-          },
-          0
-        )
-        .to(
-          ".bg-circle",
-          {
-            clipPath: "circle(50% at 50% 50%)",
-            duration: 0.5,
-            ease: "back.inOut",
-          },
-          0
-        )
-        .reverse();
-    },
-    {
-      scope: container,
-      dependencies: [start],
-    }
-  );
-
-  const handleMouse = contextSafe(() => {
-    tl.current?.reversed(!tl.current.reversed());
-  });
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -76,19 +35,17 @@ export const ButtonLink = ({
     <Link
       href={href}
       ref={container}
-      onMouseEnter={handleMouse}
-      onMouseLeave={handleMouse}
       onClick={handleClick}
       className={
-        " cursor-pointer p-1 text-lg lg:text-xl xl:text-2xl z-50 relative  flex items-end justify-center w-auto   " +
+        " cursor-pointer p-1 text-lg lg:text-xl xl:text-2xl z-50 relative  flex items-end justify-center w-auto  group    " +
         " " +
         className +
         " " +
         monoton.className
       }
     >
-      <span className="z-50"> {children}</span>
-      <MdOutlineArrowOutward className=" rotate-90 text-2xl text-orange-900" />
+      <span className="z-50 group-hover:text-orange-700 group-hover:scale-105 group-active:scale-95 transition-all duration-300"> {children}</span>
+      <MdOutlineArrowOutward className=" rotate-90 text-2xl text-orange-900 group-hover:text-orange-700 group-hover:scale-105 active:scale-95 transition-all duration-300  " />
     </Link>
   );
 };

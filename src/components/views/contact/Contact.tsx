@@ -328,7 +328,7 @@ export const Contact = () => {
 
       <footer className="pt-16 pb-4 bg-neutral-800 flex flex-col w-full gap-1 px-4 md:px-10 xl:pt-20">
         <div className="w-full  text-white flex items-center justify-center">
-          <span>Xruz Dev © - Juan Cruz Elias Paolella - {new Date().getFullYear()}</span>
+          <span>Xruz Dev © by Juan Cruz Elias Paolella - {new Date().getFullYear()}</span>
         </div>
       </footer>
     </>

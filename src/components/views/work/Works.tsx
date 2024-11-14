@@ -79,7 +79,7 @@ export const Works = () => {
       id="works"
       className="w-screen h-auto px-4  md:px-10 lg:px-14"
     >
-      <div className=" w-full  h-[25vh] lg:h-[50vh] mx-auto hidden md:flex items-center justify-center">
+    {/*   <div className=" w-full  h-[25vh] lg:h-[50vh] mx-auto hidden md:flex items-center justify-center">
         <svg
           className="w-full "
           fill="white"
@@ -128,11 +128,11 @@ export const Works = () => {
           <path d="M1815,70.98c-.47-.45-.71-.99-.71-1.62l.24-16.27.24-13.35c0-1-.24-2.04-.71-3.12-.47-1.08-.98-1.78-1.5-2.09-.69-.42-1.2-.79-1.54-1.11-.34-.32-.51-.71-.51-1.18,0-.68.26-1.22.79-1.62.53-.4,1.13-.59,1.82-.59,1.9,0,3.45.87,4.66,2.61,1.21,1.74,1.79,4.08,1.74,7.03-.32,13.9-.47,23.81-.47,29.7,0,.68-.25,1.24-.75,1.66-.5.42-1.07.63-1.7.63-.58,0-1.11-.22-1.58-.67ZM1811.01,23.11c-.24-.24-.36-.49-.36-.75,0-.63.21-1.29.63-1.98l5.85-7.82c.74-.95,1.61-1.42,2.61-1.42.53,0,.99.2,1.38.59.39.4.59.88.59,1.46,0,.37-.08.74-.24,1.11s-.34.63-.55.79l-7.5,7.66c-.47.47-1,.71-1.58.71-.32,0-.59-.12-.83-.36Z" />
           <path d="M1837.71,69.92c-.76-.79-1.15-1.71-1.15-2.76s.38-1.96,1.15-2.73c.76-.76,1.67-1.15,2.73-1.15s1.97.38,2.76,1.15c.79.76,1.19,1.67,1.19,2.73s-.4,1.97-1.19,2.76-1.71,1.18-2.76,1.18-1.96-.39-2.73-1.18Z" />
         </svg>
-      </div>
+      </div> */}
 
       <div className="flex flex-col items-center justify-center">
         <h2 className=" text-lg text-neutral-50 2xl:text-4xl  font-bold border-b-orange-900 border-b-2  w-full uppercase ">
-          Trabajos profesionales
+          Mi trabajo
         </h2>
 
         {works.map((work, i) => (
