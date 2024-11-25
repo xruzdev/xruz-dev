@@ -1,7 +1,13 @@
+import { Audiowide, Dongle, Tsukimi_Rounded } from "next/font/google";
 import localFont from "next/font/local";
-import {Tsukimi_Rounded} from "next/font/google";
 
-export const monoton = Tsukimi_Rounded({weight: "400", subsets: ["latin"]});
+export const monoton = Tsukimi_Rounded({ weight: "400", subsets: ["latin"] });
+
+export const audiowide = Audiowide({ weight: "400", subsets: ["latin"] });
+
+export const principal = Dongle({ weight: "400", subsets: ["latin"] });
+
+
 
 
 export const hankenGrotesk = localFont({

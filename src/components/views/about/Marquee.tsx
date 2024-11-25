@@ -104,7 +104,7 @@ export const Marquee = () => {
   return (
     <div
       ref={container}
-      className={`pointer-events-none  text-[2rem] xl:text-5xl   text-neutral-50 flex tracking-tight gap-2     w-full items-center group capitalize  `}
+      className={`pointer-events-none  text-[2rem] xl:text-6xl     flex tracking-tight gap-2     w-full items-center group capitalize  `}
     >
       {tags.map((item, index) => (
         <span
@@ -119,7 +119,7 @@ export const Marquee = () => {
             setIndexHover(null);
           }}
         >
-          { item === "-" ? <GoDot /> : item }
+          { item === "-" ? <GoDot className="text-orange-600" /> : item }
         </span>
       ))}
     </div>

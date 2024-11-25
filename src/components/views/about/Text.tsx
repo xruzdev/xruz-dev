@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { JSX, useRef } from "react";
 
-const text = "Tengo una fuerte pasión por crear sitios que combinan funcionalidad y diseño atractivo. Desde que comencé mi carrera, he trabajado en varios proyectos freelance en los que he tenido la oportunidad de colaborar con empresas de diversos sectores. En estos proyectos, me especialicé en construir soluciones a medida, diseños personalizados y aplicaciones web interactivas. Mi objetivo es seguir creciendo como desarrollador y seguir aprendiendo nuevas tecnologías para poder ofrecer a mis clientes las mejores soluciones posibles. ";
+const text = "Tengo una fuerte pasión por crear sitios que combinan funcionalidad y diseño atractivo. Desde que comencé mi carrera, he trabajado en varios proyectos freelance en los que he tenido la oportunidad de colaborar con empresas de diversos sectores. Me especialicé en construir soluciones a medida, diseños personalizados y aplicaciones web interactivas. Mi objetivo es seguir creciendo como desarrollador y seguir aprendiendo nuevas tecnologías para poder ofrecer a mis clientes las mejores soluciones posibles. ";
 
 export const Text = () => {
     const refs = useRef<HTMLSpanElement[]>([]);
@@ -46,15 +46,15 @@ export const Text = () => {
       const splitLetters = (word:string) => {
         const letters: JSX.Element[] = []
         word.split("").forEach( (letter, i) => {
-           letters.push(<span className="opacity-[0.2]" key={letter + "_" + i} ref={el => {refs.current.push(el as HTMLSpanElement)}}>{letter}</span>)
+           letters.push(<span className="opacity-[0.1]" key={letter + "_" + i} ref={el => {refs.current.push(el as HTMLSpanElement)}}>{letter}</span>)
         })
         return letters;
       }
 
 
 
-  return <div ref={container} className=" w-full xl:w-1/2">
-    <div ref={body} className="flex flex-wrap gap-2  w-full  text-xl leading-8 2xl:leading-[3.5rem] xl:text-2xl 2xl:text-3xl  ">
+  return <div ref={container} className=" w-full    text-black mt-10">
+    <div ref={body} className="flex flex-wrap gap-2  items-center justify-center w-full  text-xl leading-8 2xl:leading-[3.9rem] xl:text-4xl 2xl:text-6xl font-bosld tracking-wide  ">
         {splitWords(text)}
     </div>
     

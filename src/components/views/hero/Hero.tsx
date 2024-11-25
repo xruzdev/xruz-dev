@@ -1,283 +1,310 @@
 "use client";
-import { SvgBackground } from "@/components/SvgBackground";
+import { LenisLink } from "@/components/ui/LenisLink";
 import { XruzLogo } from "@/components/XruzLogo";
-import { monoton } from "@/config";
+import { audiowide } from "@/config";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import gsap from "gsap";
 import { useLenis } from "lenis/react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { MdKeyboardDoubleArrowDown } from "react-icons/md";
-import { ButtonLink } from "../../ui/ButtonLink";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 export const Hero = () => {
   const container = useRef<HTMLDivElement>(null),
     text = useRef<HTMLDivElement>(null),
-    buttons = useRef<HTMLDivElement>(null),
-    video = useRef<HTMLVideoElement>(null);
+    video = useRef<HTMLVideoElement>(null),
+    welcomeScreen = useRef<HTMLDivElement>(null),
+    menuTl = useRef<gsap.core.Timeline>(),
+    menuContainer = useRef<HTMLDivElement>(null);
 
-  const [videoLoaded, setVideoLoaded] = useState(false),
-  [isMobile, setIsMobile] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState(false);
 
-
-  useEffect(()=>{
-    if(window.innerWidth < 1000){
-      setIsMobile(true);
-    }
-  },[])
-
-
-
-
-
-
-  useEffect(()=>{
-
-    if (isMobile) return;
-
-    if (video.current) {
-
-      const videoEl = video.current as HTMLVideoElement;
-
-      if(videoEl.buffered.length > 0){
-        setVideoLoaded(true);
-
-       
-
-      }
-
-      
-     
-    }
-
-  },[video,isMobile])
-
-  useLenis(
+  const handleClickMenu = () => {
+    setOpenSubMenu(!openSubMenu);
+  };
+  const lenis = useLenis(
     (lenis) => {
-
-      if (isMobile) {
-        lenis.start();
-        return;
-      }
-
-
-      if (videoLoaded) {
+      if (isReady) {
         lenis.start();
       } else {
         lenis.stop();
       }
     },
-    [videoLoaded]
+    [isReady]
   );
 
+  useEffect(() => {
+    if (!menuTl.current) return;
 
-
+    if (openSubMenu) {
+      menuTl.current.play();
+      lenis?.stop();
+    } else {
+      menuTl.current.reverse();
+      lenis?.start();
+    }
+  }, [openSubMenu, lenis]);
 
   useGSAP(
     () => {
-      if (
-        !container.current ||
-        !text.current ||
-        !buttons.current ||
-        !video.current ||
-        isMobile ||
-        !videoLoaded
-      )
-        return;
+      //polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)
 
-      gsap.registerPlugin(ScrollTrigger);
+      if (!menuContainer.current) return;
 
-      const textChilds = Array.from(text.current.children),
-        btnChilds = Array.from(buttons.current.children),
-        videoDuration = video.current.duration;
+      const svgLogo = menuContainer.current.querySelector("#logo-menu");
 
-        if(!videoDuration) return;
+      if (!svgLogo) return;
 
-        
+      const logoChilds = Array.from(
+        svgLogo.querySelectorAll("path")
+      ) as SVGPathElement[];
 
-      gsap.to(video.current, {
-        currentTime: videoDuration, // El progreso total del video
-        ease: "none", // Sin easing para un scroll lineal
-        scrollTrigger: {
-          trigger: "body", // El contenedor que activa el scroll
-          start: "top top", // Comienza cuando el contenedor está en la parte superior
-          end: "bottom top", // Termina cuando el contenedor está fuera de vista
-          scrub: 1, // Sincroniza el scroll con el tiempo del video
-        },
-      });
+      logoChilds.forEach((child) => {
+        const totalLength = child.getTotalLength();
 
-      gsap.matchMedia().add(
-        {
-          lg: "(min-width: 1023px) and (max-width: 1279px)",
-          xl: "(min-width: 1280px) and (max-width: 1535px)",
-          xxl: "(min-width: 1536px)",
-        },
-        (context) => {
-          const { lg, xl } = context.conditions as { lg: boolean; xl: boolean };
-
-          gsap.to("#scroll, #initial-logo", {
-            scale: 5,
-            opacity: 0,
-            duration: 2,
-            scrollTrigger: {
-              trigger: "#scroll",
-              start: lg ? "-500px top" : xl ? "-500px top" : "-800px top",
-              end: "500px top",
-              scrub: 1,
-              pin: true,
-            },
-          });
+        if (totalLength) {
+          child.style.strokeDasharray = `${totalLength}`;
+          child.style.strokeDashoffset = `${totalLength}`; // Ocultar inicialmente
         }
-      );
-
-      gsap.set([textChilds, btnChilds, "#svg-background", "#logo"], {
-        transformOrigin: "center center",
       });
-      gsap.to([textChilds, btnChilds, "#svg-background", "#logo"], {
-        scale: 1,
-        y: 0,
-        duration: 2,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: "#text-container", // El contenedor que activa el scroll
-          start: "center center", // Comienza cuando el contenedor está en la parte superior
-          end: "85% center", // Termina cuando el contenedor está fuera de vista
-          scrub: 1, // Sincroniza el scroll con el tiempo del video
 
-          pin: true,
-        },
-      });
+      menuTl.current = gsap
+        .timeline({ paused: true })
+        .to(
+          menuContainer.current,
+          {
+            display: "flex",
+          },
+          0
+        )
+        .to(
+          ".layer-back",
+          {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            duration: 1.5,
+            ease: "power4.out",
+          },
+          0
+        )
+        .to(
+          ".letter-link",
+          {
+            y: 0,
+            duration: 0.5,
+            ease: "power4.out",
+            delay: -0.7,
+          },
+          1
+        )
+        .to(
+          ".social-link",
+          {
+            y: 0,
+            duration: 0.5,
+            ease: "power4.out",
+            delay: -0.1,
+          },
+          1
+        )
+        .to(
+          ".line",
+          {
+            width: "100%",
+            duration: 0.5,
+            ease: "power4.out",
+            delay: -0.3,
+          },
+          1
+        )
+        .to(
+          ".xruz-logo",
+          {
+            opacity: 1,
+            duration: 1,
+            delay: -0.8,
+            ease: "power4.out",
+          },
+          1
+        )
+        .to(logoChilds, {
+          strokeDashoffset: 0,
+          duration: 1,
+          ease: "power2.out",
+          delay:-0.8
+        },1);
     },
     {
-      scope: container,
-      dependencies: [videoLoaded],
+      scope: menuContainer,
     }
   );
 
+  useGSAP(() => {
+    if (!container.current || !text.current || !welcomeScreen.current) return;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsReady(true);
+      },
+    });
+
+    const textChildren = text.current.children;
+
+    tl.to(".text, .xruz-logo", {
+      opacity: 1,
+      duration: 0.5,
+      ease: "power4.out",
+      stagger: 0.01,
+    })
+      .to(".text, .xruz-logo", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power4.out",
+        stagger: 0.01,
+      })
+      .to(welcomeScreen.current, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        duration: 1.5,
+        ease: "power4.out",
+        delay: -0.8,
+      })
+      .to(textChildren, {
+        y: 0,
+        duration: 1.5,
+        ease: "power4.out",
+        stagger: 0.2,
+        delay: -0.8,
+      });
+  });
+
   return (
     <>
+      {/*Welcome Screen */}
+      <div
+        ref={welcomeScreen}
+        style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+        className="fixed top-0 left-0 w-screen h-[100dvh] lg:h-screen  bg-neutral-800 z-[500] flex flex-col md:flex-row gap-5 items-center justify-center text-6xl text-white"
+      >
+        <XruzLogo className="xruz-logo  opacity-50  size-32 stroke-white fill-white" />
+        <h1 className="">
+          {`Apasionado por el Código, impulsado por la inovación.`
+            .split("")
+            .map((c, i) => (
+              <span key={i} className="text text-2xl opacity-50">
+                {c}
+              </span>
+            ))}
+        </h1>
+      </div>
+      {/*Menu Btn */}
+      <button
+        onClick={handleClickMenu}
+        className="z-50 absolute text-3xl md:text-5xl lg:text-4xl right-4 md:right-20 top-5  md:top-10 text-white  "
+      >
+        Menu
+      </button>
+
+      {/*Menu */}
+      <div
+        ref={menuContainer}
+        className="hidden absolute top-0 left-0 w-screen h-[50vh] z-[100] px-10  justify-evenly flex-col text-black"
+      >
+        <div
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
+          className="layer-back absolute w-screen h-[50vh] bg-white left-0 top-0"
+        />
+
+        <button
+          onClick={handleClickMenu}
+          className="absolute text-3xl md:text-5xl lg:text-4xl right-4 md:right-20 top-5  md:top-10 text-black z-[100] "
+        >
+          Cerrar
+        </button>
+
+        <div className="w-full h-3/4 flex justify-between">
+          <div className=" h-full w-1/4 flex flex-col justify-center items-center">
+            <XruzLogo
+              id="logo-menu"
+              className=" xruz-logo opacity-0 size-64 stroke-orange-600 fill-orange-600 z-50"
+            />
+          </div>
+
+          <div className="h-full w-3/4  flex items-center justify-center z-50">
+            <div className="w-full flex justify-evenly text-7xl uppe">
+              <LenisLink onClick={()=>setOpenSubMenu(false)} className="flex items-end overflow-hidden " href="#about">
+                <span className="letter-link block translate-y-full">
+                  Sobre mi
+                </span>
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+              </LenisLink>
+              <LenisLink onClick={()=>setOpenSubMenu(false)} className="flex items-end overflow-hidden " href="#works">
+                <span className="letter-link block translate-y-full">
+                  Trabajo
+                </span>
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+              </LenisLink>
+              <LenisLink onClick={()=>setOpenSubMenu(false)} className="flex items-end overflow-hidden " href="#contact">
+                <span className="letter-link block translate-y-full">
+                  Contacto
+                </span>
+
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+              </LenisLink>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex justify-between z-50 overflow-hidden">
+          <span className="social-link block translate-y-full">
+            Juan Cruz Elias Paollela | Desarrollador FullStack Creativo.
+          </span>
+          <div className="flex gap-4">
+            <Link className="overflow-hidden"  href="https://www.linkedin.com/in/xruzdev">
+              <span className="social-link block translate-y-full">
+                Linkedin
+                <MdOutlineArrowOutward className="inline " />
+              </span>
+            </Link>
+            <Link  className="overflow-hidden" href="http://www.github.com/xruzdev">
+              <span className= " social-link block translate-y-full">
+                Github
+                <MdOutlineArrowOutward className="inline" />
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="line w-0 h-0.5 bg-red-400 self-end relative text-xl font-b" />
+      </div>
+
       <section
         id="hero"
         ref={container}
-        className=" w-full h-[100dvh] lg:h-[300vh] flex flex-col lg:flex-row relative"
+        className=" w-full h-[100dvh] lg:h-screen flex flex-col lg:flex-row relative"
       >
-        {videoLoaded && <div
-          id="scroll"
-          className={"text-gray-300   absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-32 gap-5"}
-        >
-          <span className={monoton.className + " text-2xl"}>Scroll.</span>
-          <div className=" bordesr  rounded-full h-20 w-10 flex justify-center items-center">
-            <MdKeyboardDoubleArrowDown className="text-3xl animate-bounce" />
-          </div>
-        </div>}
-
-        <div
-          id="initial-logo"
-          className="hidden absolute top-[15%] left-1/2 -translate-x-1/2 lg:flex flex-col items-center gap-4 opacity-50 w-96 "
-        >
-          <div className="lg:flex items-center gap-4 size-full">
-            <svg
-              id="Capa_1"
-              data-name="Capa 1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 204 130"
-              className="size-32 stroke-white fill-white"
-            >
-              <polyline
-                points="15 15 115 115 165 65"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="30"
-              />
-              <line
-                x1="15"
-                y1="115"
-                x2="115"
-                y2="15"
-                fill="none"
-                strokeLinecap="round"
-                strokeMiterlimit="10"
-                strokeWidth="30"
-              />
-              <circle cx="189.5" cy="40.5" r="14.5" />
-            </svg>
-
-            <h1 className={monoton.className + " text-5xl"}>Bienvenidos.</h1>
-          </div>
-        </div>
-
-        <SvgBackground />
-      {!isMobile &&  <video
+        <video
+          src="https://res.cloudinary.com/dqbpjov4y/video/upload/v1732555181/Video_dyh9b3.mp4"
           ref={video}
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-75"
+          autoPlay
           muted
-          
-          onLoadedMetadata={() => setVideoLoaded(true)}
-          onCanPlayThrough={() => setVideoLoaded(true)}
-          className="hidden lg:block fixed top-0 left-0 w-screen h-screen object-cover -z-50 brightness-[.3] sepia "
+          loop
+        />
+
+        <XruzLogo className="absolute top-0 lg:top-0 left-4 md:left-20 size-20 md:size-32 lg:size-28 stroke-orange-600 fill-orange-600" />
+
+        <h1
+          ref={text}
+          className={
+            "pointer-events-none text-5xl md:text-8xl lg:text-9xl  xl:text-[11rem]  2xl:text-[17rem] tracking-widest font-bold absolute flex bottom-0 left-6 md:left-20 pb-4  md:leading-[250px] overflow-hidden " +
+            " " +
+            audiowide.className
+          }
         >
-          <source src="https://res.cloudinary.com/dqbpjov4y/video/upload/v1731443124/output_cjbckd.mp4" />
-        </video>}
-        <div
-          id="text-container"
-          className="flex flex-col items-center justify-end lg:justify-start size-full"
-        >
-          <XruzLogo className="stroke-orange-900 fill-orange-900 size-24 absolute lg:sticky top-0 left-1/2 -translate-x-1/2 z-50 lg:scale-0 " />
-          <div
-            ref={text}
-            className=" text gap-4 lg:gap-14 2xl:gap-20  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col items-center justify-center text-center px-4 lg:w-3/5 "
-          >
-            <span className="lg:scale-0 lg:translate-y-56  2xl:translate-y-80  text-xl md:text-4xl  italic block">
-              Juan Cruz Elias Paolella
-            </span>
-            <span
-              className={
-                "lg:scale-0  text-4xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl uppercase lg:translate-y-20  2xl:translate-y-32 font-bold block italic " +
-                monoton.className
-              }
-            >
-              {/* Creative FullStack Developer  */}
-              Transformo ideas en soluciones digitales
-            </span>
-            <span className="lg:scale-0 lg:-translate-y-16 2xl:-translate-y-1  text-lg 2xl:text-3xl   block ">
-              Desarrollador Fullstack. De Bahía Blanca, Argentina.
-            </span>
-            <div
-              ref={buttons}
-              className="buttons hidden lg:flex w-full mb-4 items-center justify-evenly text-center text-xs -z-20   lg:static "
-            >
-              <ButtonLink
-                className="lg:scale-0 lg:-translate-y-40 2xl:-translate-y-64 "
-                href="#about"
-              >
-                Sobre Mi
-              </ButtonLink>
-              <ButtonLink
-                className="lg:scale-0 lg:-translate-y-40 2xl:-translate-y-64 !text-4xl mt-5   "
-                href="#works"
-              >
-                Mi Trabajo
-              </ButtonLink>
-              <ButtonLink
-                className="lg:scale-0 lg:-translate-y-40 2xl:-translate-y-64    "
-                href="#contact"
-              >
-                Contacto
-              </ButtonLink>
-            </div>
-          </div>
-          <div className="buttons flex lg:hidden w-full mb-4 items-center justify-evenly text-center text-xs     lg:static ">
-            <ButtonLink className="" href="#about">
-              Sobre Mi
-            </ButtonLink>
-            <ButtonLink className=" " href="#works">
-              Mi Trabajo
-            </ButtonLink>
-            <ButtonLink className="  " href="#contact">
-              Contacto
-            </ButtonLink>
-          </div>
-        </div>
+          <span className="block translate-y-full">XRUZ</span>{" "}
+          <span className="text-orange-600 block translate-y-full ">.</span>{" "}
+          <span className="block translate-y-full">DEV</span>
+        </h1>
       </section>
     </>
   );

@@ -36,7 +36,7 @@ export const SubmitBtn = ({ children, className, error, setError }: ButtonProps)
 
     const time = setTimeout(() => {
       gsap.to(container.current, {
-        background: "#7c2d12",
+        background: "#f97316",
       });
     }, 2000);
 
@@ -141,7 +141,7 @@ export const SubmitBtn = ({ children, className, error, setError }: ButtonProps)
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={
-        "-top-10 lg:-top-16 left-3/4 -translate-x-1/2 hero-link cursor-pointer p-1 text-sm lg:text-2xl z-50 relative  size-20 lg:size-32 flex items-center justify-center  bg-orange-900 " +
+        "-top-10 lg:-top-16 left-3/4 -translate-x-1/2 hero-link cursor-pointer p-1 text-sm lg:text-2xl z-50 relative  size-20 lg:size-32 flex items-center justify-center  bg-orange-600 " +
         " " +
         className
       }

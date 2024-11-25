@@ -1,24 +1,38 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import { Marquee } from "./Marquee";
-import { Text } from "./Text";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import { Marquee } from "./Marquee";
+import { Text } from "./Text";
 
 export const About = () => {
   useGSAP(() => {
-    gsap.from("img", {
-      filter: "blur(10px)",
-      duration: 1,
-      ease: "power2.inOut",
+    gsap.to(".header-text", {
+     y: 0,
+      duration:1.5,
+      ease: "power3.out",
       scrollTrigger: {
-        trigger: "img",
-        start: "-10% center",
-        end: "50% 50%",
-        scrub: true,
+        trigger: "#about",
+        start: "5% bottom",
+        end: "bottom 50%",
+        toggleActions: "play none none reverse",
+
+      
       },
     });
+
+    gsap.to(".header-line", {
+      width: "100%",
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "#about",
+        start: "5% bottom",
+        end: "bottom 50%",
+        toggleActions: "play none none reverse",
+      },
+    })
+
+
   });
 
   return (
@@ -26,15 +40,27 @@ export const About = () => {
       id="about"
       className="w-screen h-auto   relative  flex flex-col items-center justify-center overflow-hidden px-4 md:px-10 lg:px-14"
     >
-      <div className="w-full flex flex-col lg:flex-row gap-4 items-center justify-evenly h-auto lg:h-[90vh]  ">
+
+
+      <div id="header" className="relative w-full  h-20 flex  items-center justify-between text-xs lg:text-lg 2xl:text-3xl  text-black lg:mt-16 overflow-hidden">
+
+        <span className="header-text block translate-y-52">
+        Apasionado por el código, impulsado por la innovación.
+        </span>
+
+        <span className="header-text block translate-y-52">
+          Bahía Blanca, Buenos Aires, Argentina.
+        </span>
+
+        <div className="header-line w-0 bg-orange-600 h-0.5 absolute bottom-0 "></div>
+
+      </div>
+       
         <Text />
 
-        <div className="relative w-full md:w-[60%] aspect-square lg:w-1/4 h-3/4 mt-4 lg:mt-0 ">
-          <Image src="https://res.cloudinary.com/dqbpjov4y/image/upload/v1731443113/retrato_akppqf.jpg" fill alt="retrato" className="object-cover " />
-        </div>
-      </div>
+     
 
-      <div className="w-[800vw] h-[25vh] lg:h-[40vh] md:w-[500vw] lg:w-[300vw]   2xl:w-[200vw] 2xl:h-[50vh] flex justify-center items-center text-white   ">
+      <div className="w-[800vw] h-[25vh] lg:h-[40vh] md:w-[500vw] lg:w-[300vw] xl:w-[350vw]  2xl:w-[250vw] 2xl:h-[50vh] flex justify-center items-center text-black  ">
         <Marquee />
       </div>
     </section>

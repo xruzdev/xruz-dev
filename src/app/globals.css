@@ -1,42 +1,49 @@
+@import url("https://use.typekit.net/rzp6jas.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+.basic-regular {
+  font-family: "gesta", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.basic-bold {
+  font-family: "loos-normal", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 .layer {
   @apply w-1/6 h-screen;
 }
 
 form h3 {
-  @apply text-xs font-semibold text-orange-900 absolute left-0;
+  @apply text-xs font-semibold text-orange-600 absolute left-0;
 }
 
-form{
-  @apply w-full
+form {
+  @apply w-full;
 }
 
 input {
-  @apply bg-transparent no-underline ring-0 border-0 outline-none py-4 w-full focus:bg-transparent  ;
-
- 
+  @apply bg-transparent no-underline ring-0 border-0 outline-none py-4 w-full focus:bg-transparent;
 }
 
-.form-col{
-  @apply flex flex-col w-full border-b border-neutral-500 pt-8 pl-6 relative; 
+.form-col {
+  @apply flex flex-col w-full border-b border-orange-600 pt-8 pl-6 relative;
 }
 
 textarea {
   @apply bg-transparent no-underline ring-0 border-0 outline-none py-2;
 }
 
-.hero-link{
+.hero-link {
   box-shadow: 0 0 0 2px #ff2a2a;
 }
-
-
-
 
 .doto {
   font-family: "Doto", sans-serif;

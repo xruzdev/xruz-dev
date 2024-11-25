@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { Lenis } from "@/components";
-import { hankenGrotesk } from "@/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${hankenGrotesk.className} antialiased overflow-hidden bg-black text-white `}
+        className={`basic-regular relative antialiased h-auto w-screen overflow-hidden bg-white text-white `}
       >
         <Lenis>
    
