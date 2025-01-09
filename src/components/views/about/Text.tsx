@@ -54,7 +54,7 @@ export const Text = () => {
 
 
   return <div ref={container} className=" w-full    text-black mt-10">
-    <div ref={body} className="flex flex-wrap gap-2  items-center justify-center w-full  text-xl leading-8 2xl:leading-[3.9rem] xl:text-4xl 2xl:text-6xl font-bosld tracking-wide  ">
+    <div ref={body} className="flex flex-wrap gap-2  items-center justify-center w-full  text-xl leading-8 2xl:leading-[3.9rem] xl:text-4xl 2xl:text-5xl font-bosld tracking-wide px-4 md:px-10 xl:px-32">
         {splitWords(text)}
     </div>
     

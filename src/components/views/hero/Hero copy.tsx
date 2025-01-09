@@ -8,7 +8,6 @@ import { useLenis } from "lenis/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineArrowOutward } from "react-icons/md";
-import { CustomEase } from "gsap/CustomEase";
 
 export const Hero = () => {
   const container = useRef<HTMLDivElement>(null),
@@ -20,8 +19,6 @@ export const Hero = () => {
 
   const [isReady, setIsReady] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
-
-  gsap.registerPlugin(CustomEase);
 
   const handleClickMenu = () => {
     setOpenSubMenu(!openSubMenu);
@@ -148,95 +145,17 @@ export const Hero = () => {
   );
 
   useGSAP(() => {
-    if (!container.current || !text.current || !welcomeScreen.current) return;
+    if (container.current || !text.current || !welcomeScreen.current) return;
 
     const tl = gsap.timeline({
       onComplete: () => {
         setIsReady(true);
-        gsap.set(welcomeScreen.current, {
-          display: "none",
-        });
-      },
-      defaults: {
-        ease: CustomEase.create("custom", "M0,0 C1.034,0 0.492,1 1,1 "),
       },
     });
 
     const textChildren = text.current.children;
 
-    tl.to(
-      [".layer-1"],
-      {
-        height: 0,
-        duration: 3,
-
-        transformOrigin: "center",
-       // ease: "elastic.in(1, 0.3)",
-      },
-      0
-    )
-      .to(
-        welcomeScreen.current,
-        {
-          backgroundColor: "transparent",
-          duration: 1,
-        },
-        2
-      )
-      .from(
-        "video",
-        {
-           scale: 0,
-          duration: 1,
-          transformOrigin: "center",
-        },
-        2
-      )
-      .to(
-        ".layer-3",
-        {
-          clipPath: "polygon(50% 0%, 2% 0, 98% 0)",
-          duration: 1,
-        
-        },
-        2
-      )
-      .to(
-        ".layer-4",
-        {
-          clipPath: "polygon(100% 50%, 100% 2%, 100% 98%)",
-          duration: 1,
-        
-        },
-        2
-      )
-      .to(
-        ".layer-5",
-        {
-          clipPath: "polygon(50% 100%, 98% 100%, 2% 100%)",
-          duration: 1,
-        
-        },
-        2
-      )
-      .to(
-        ".layer-6",
-        {
-          clipPath: "polygon(0% 50%, 0 98%, 0 2%)",
-          duration: 1,
-        
-        },
-        2
-      )
-      .to(textChildren, {
-        y: 0,
-        duration: 1.5,
-        ease: "power4.out",
-        stagger: 0.2,
-        delay: -0.2,
-      },3); 
-
-    /*     tl.to(".text, .xruz-logo", {
+    tl.to(".text, .xruz-logo", {
       opacity: 1,
       duration: 0.5,
       ease: "power4.out",
@@ -260,7 +179,7 @@ export const Hero = () => {
         ease: "power4.out",
         stagger: 0.2,
         delay: -0.8,
-      },2); */
+      },2);
   });
 
   return (
@@ -268,10 +187,10 @@ export const Hero = () => {
       {/*Welcome Screen */}
       <div
         ref={welcomeScreen}
-        // style={{ clipPath: "polygon(50% 50%, 0 0, 100% 0)" }}
-        className="fixed top-0 left-0 w-screen h-[100dvh] lg:h-screen  bg-white z-[500] flex flex-col md:flex-row gap-5 items-center justify-center text-6xl text-white"
+        style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+        className="fixed top-0 left-0 w-screen h-[100dvh] lg:h-screen  bg-neutral-800 z-[500] flex flex-col md:flex-row gap-5 items-center justify-center text-6xl text-white"
       >
-        {/*  <XruzLogo className="xruz-logo  opacity-50 size-20  md:size-32 stroke-white fill-white" />
+        <XruzLogo className="xruz-logo  opacity-50 size-20  md:size-32 stroke-white fill-white" />
         <h1 className="text-center text-xs md:text-2xl">
           {`Apasionado por el Código, impulsado por la inovación.`
             .split("")
@@ -280,30 +199,7 @@ export const Hero = () => {
                 {c}
               </span>
             ))}
-        </h1> */}
-
-        <div
-          style={{ clipPath: "polygon(50% 48%, 2% 0, 98% 0)" }}
-          className="layer-3 absolute left-0 top-0 size-full bg-neutral-800"
-        ></div>
-
-        <div
-          style={{ clipPath: "polygon(52% 50%, 100% 2%, 100% 98%)" }}
-          className="layer-4 absolute left-0 top-0 size-full bg-neutral-800"
-        ></div>
-        <div
-          style={{ clipPath: "polygon(50% 52%, 98% 100%, 2% 100%)" }}
-          className="layer-5 absolute left-0 top-0 size-full bg-neutral-800"
-        ></div>
-
-        <div
-          style={{ clipPath: "polygon(48% 50%, 0 98%, 0 2%)" }}
-          className="layer-6 absolute left-0 top-0 size-full bg-neutral-800"
-        ></div>
-
-        <div className="layer-1  absolute left-0 top-0 w-full h-1/2 bg-neutral-800 -z-10"></div>
-
-        <div className="layer-1 absolute left-0 bottom-0 w-full h-1/2 bg-neutral-800 -z-10"></div>
+        </h1>
       </div>
       {/*Menu Btn */}
       <button

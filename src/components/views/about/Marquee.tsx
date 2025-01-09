@@ -27,7 +27,7 @@ export const Marquee = () => {
     "-",
     "Sitios de alta performance",
     "-",
-    "Eperiencias interactivas",
+    "Esperiencias interactivas",
     "-",
   ];
   /* const tags = [
