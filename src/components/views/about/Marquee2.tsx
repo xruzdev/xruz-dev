@@ -7,7 +7,7 @@ import { horizontalLoop } from "@/utils/horizontalLoop";
 import { useLenis } from "lenis/react";
 import { GoDot } from "react-icons/go";
 
-export const Marquee = () => {
+export const Marquee2 = () => {
   const [direction, setDirection] = useState("left");
 
   const tlRef = useRef<gsap.core.Timeline>();
@@ -17,19 +17,29 @@ export const Marquee = () => {
 
 
   const tags = [
-    "Sitios web",
+    "Node.js",
     "-",
-    "Aplicaciones web",
+    "React",
     "-",
-    "Diseño web",
+    "Next.js",
     "-",
-    "Visión creativa",
+    "TypeScript",
     "-",
-    "Sitios de alta performance",
+    "JavaScript",
     "-",
-    "Experiencias interactivas",
+    "TailwindCSS",
     "-",
-  ];
+    "CSS",
+    "-",
+    "Sass",
+    "-",
+    "GSAP",
+    "-",
+    "Framer motion",
+    "-",
+    "Express js",
+    "-",
+  ]; 
 
 
 
@@ -39,9 +49,9 @@ export const Marquee = () => {
 
   useEffect(() => {
     if (tlRef.current) {
-      tlRef.current.reversed(direction === "right");
+      tlRef.current.reversed(direction === "left");
     }
-  }, [direction]);
+  }, [direction]); 
 
   useGSAP(
     () => {
@@ -51,6 +61,7 @@ export const Marquee = () => {
       tlRef.current = horizontalLoop(words, {
         repeat: -1,
         paddingRight: "52px",
+        
       });
     },
     {
@@ -63,12 +74,12 @@ export const Marquee = () => {
   return (
     <div
       ref={container}
-      className={`pointer-events-none  text-[2rem] xl:text-6xl     flex tracking-tight gap-2     w-full items-center group capitalize  `}
+      className={`pointer-events-none  text-sm md:text-lg xl:text-2xl  text-nowrap   flex tracking-tight gap-2     w-full items-center group capitalize  `}
     >
       {tags.map((item, index) => (
         <span
           key={index}
-          className={`  box mx-8 h-full   relative `}
+          className={`  box mx-8 h-full text-gray-500  relative `}
         
         >
           { item === "-" ? <GoDot className="text-orange-600" /> : item }
@@ -77,3 +88,4 @@ export const Marquee = () => {
     </div>
   );
 };
+

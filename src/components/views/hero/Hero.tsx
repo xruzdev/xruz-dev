@@ -339,37 +339,37 @@ export const Hero = () => {
           </div>
 
           <div className="h-full w-full  lg:w-3/4  flex items-center justify-center z-50 ">
-            <div className="w-full h-full flex flex-col items-center md:flex-row justify-evenly text-3xl xl:text-5xl 2xl:text-7xl uppe">
+            <div className={` ${audiowide.className}  w-full h-full flex flex-col items-center md:flex-row justify-evenly text-3xl xl:text-5xl 2xl:text-6xl text-neutral-800 uppercase`}>
               <LenisLink
                 onClick={() => setOpenSubMenu(false)}
-                className="flex items-end overflow-hidden "
+                className="flex items-end overflow-hidden group "
                 href="#about"
               >
-                <span className="letter-link block translate-y-full">
+                <span className="letter-link block translate-y-full group-hover:text-orange-600 transition-colors duration-300">
                   Sobre mi
                 </span>
-                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full group-hover:text-orange-600 transition-colors duration-300" />
               </LenisLink>
               <LenisLink
                 onClick={() => setOpenSubMenu(false)}
-                className="flex items-end overflow-hidden "
+                className="flex items-end overflow-hidden group "
                 href="#works"
               >
-                <span className="letter-link block translate-y-full">
+                <span className="letter-link block translate-y-full group-hover:text-orange-600 transition-colors duration-300">
                   Trabajo
                 </span>
-                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full group-hover:text-orange-600 transition-colors duration-300  " />
               </LenisLink>
               <LenisLink
                 onClick={() => setOpenSubMenu(false)}
-                className="flex items-end overflow-hidden "
+                className="flex items-end overflow-hidden group "
                 href="#contact"
               >
-                <span className="letter-link block translate-y-full">
+                <span className="letter-link block translate-y-full group-hover:text-orange-600 transition-colors duration-300">
                   Contacto
                 </span>
 
-                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full" />
+                <MdOutlineArrowOutward className="letter-link text-2xl inline rotate-90 translate-y-full group-hover:text-orange-600 transition-colors duration-300" />
               </LenisLink>
             </div>
           </div>

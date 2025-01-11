@@ -49,7 +49,7 @@ export const Contact = () => {
       <section
         id="contact"
         ref={container}
-        className="w-screen  h-auto text-white  flex flex-col  items-start justify-start md:justify-center md:items-cesnter bg-black   gap-4  px-4 md:px-10 lg:px-14 xl:px-32 pt-10 lg:pt-20 border-t-2 border-t-orange-600"
+        className="w-screen  h-auto text-white  flex flex-col  items-start justify-start md:justify-center md:items-cesnter bg-neutral-800   gap-4  px-4 md:px-10 lg:px-14 xl:px-32 pt-10 lg:pt-20 border-t-2 border-t-orange-600"
       >
       
 
@@ -199,7 +199,7 @@ export const Contact = () => {
             </div>
       </section>
 
-      <footer className="pt-16 pb-4 bg-black flex flex-col w-full gap-1 px-4 md:px-10 xl:pt-10">
+      <footer className="pt-16 pb-4 bg-neutral-800 flex flex-col w-full gap-1 px-4 md:px-10 xl:pt-10">
         <div className="w-full  text-white flex items-center justify-center">
           <span className="text-center">Xruz Dev © por Juan Cruz Elias Paolella - {new Date().getFullYear()}</span>
         </div>

@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { Marquee } from "./Marquee";
 import { Text } from "./Text";
+import { Marquee2 } from "./Marquee2";
 
 export const About = () => {
   useGSAP(() => {
@@ -60,8 +61,14 @@ export const About = () => {
 
      
 
-      <div className="w-[800vw] h-[25vh] lg:h-[40vh] md:w-[500vw] lg:w-[300vw] xl:w-[350vw]  2xl:w-[250vw] 2xl:h-[50vh] flex justify-center items-center text-black  ">
+      <div className="h-[5vh] w-[90vw] 2xl:h-[10vh] flex justify-center items-center text-black mt-20   ">
+        <Marquee2 />
+      </div>
+      <div className="w-[800vw] h-[10vh]  md:w-[500vw] lg:w-[300vw] xl:w-[350vw]  2xl:w-[250vw] lg:h-[20vh] 2xl:h-[10vh] flex justify-center items-center text-black  ">
         <Marquee />
+      </div>
+      <div className="h-[5vh] w-[90vw]   2xl:h-[10vh] flex justify-center items-center text-black mb-20 ">
+        <Marquee2 />
       </div>
     </section>
   );
